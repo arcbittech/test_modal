@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add User Modal</title>
+    <title>Outreach Template Config Modal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -36,40 +36,27 @@
 
         .modal-header {
             padding: 32px 40px 24px;
-            background: #f8f9fa;
+            border-bottom: 1px solid #e8e8e8;
         }
 
         .modal-header h2 {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
             color: #1a1a1a;
-            margin-bottom: 8px;
-        }
-
-        .modal-subtitle {
-            font-size: 16px;
-            font-weight: 400;
-            color: #6b7280;
+            margin-bottom: 0;
         }
 
         .modal-body {
             padding: 40px;
-            max-height: calc(90vh - 240px);
+            max-height: calc(90vh - 200px);
             overflow-y: auto;
         }
 
         .form-row {
             display: grid;
-            gap: 24px;
-            margin-bottom: 24px;
-        }
-
-        .form-row.three-cols {
-            grid-template-columns: 140px 1fr 1fr;
-        }
-
-        .form-row.two-cols {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px 24px;
+            margin-bottom: 32px;
         }
 
         .form-row.one-col {
@@ -82,50 +69,41 @@
             position: relative;
         }
 
+        .form-group.span-2 {
+            grid-column: span 2;
+        }
+
         label {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 400;
             color: #6b7280;
-            margin-bottom: 12px;
-            transition: all 0.2s;
+            margin-bottom: 8px;
         }
 
         input[type="text"],
-        input[type="email"],
-        input[type="number"],
         select,
-        .multi-select-input {
+        textarea {
             padding: 0 0 12px 0;
             border: none;
             border-bottom: 1px solid #d1d5db;
             font-size: 15px;
-            color: #1a1a1a;
+            color: #1f2937;
             font-family: 'Open Sans', sans-serif;
             transition: all 0.3s;
             background: transparent;
             outline: none;
+            resize: none;
         }
 
         input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="number"]:focus,
         select:focus,
-        .multi-select-input:focus-within {
+        textarea:focus {
             border-bottom-color: #8b5cf6;
         }
 
-        input[type="text"]:focus ~ label,
-        input[type="email"]:focus ~ label,
-        input[type="number"]:focus ~ label,
-        select:focus ~ label {
-            color: #8b5cf6;
-        }
-
         input[type="text"]::placeholder,
-        input[type="email"]::placeholder,
-        input[type="number"]::placeholder {
+        textarea::placeholder {
             color: #9ca3af;
-            font-size: 15px;
         }
 
         select {
@@ -135,122 +113,22 @@
             background-repeat: no-repeat;
             background-position: right 0 center;
             padding-right: 24px;
-            color: #6b7280;
         }
 
-        select:focus {
-            color: #1a1a1a;
-        }
-
-        select option {
-            color: #1a1a1a;
-        }
-
-        .phone-group {
-            display: grid;
-            grid-template-columns: 100px 1fr 120px;
-            gap: 24px;
-        }
-
-        .multi-select-wrapper {
-            position: relative;
-        }
-
-        .multi-select-input {
-            min-height: 40px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            cursor: pointer;
-            padding-bottom: 8px;
-        }
-
-        .multi-select-placeholder {
-            color: #9ca3af;
+        textarea {
+            padding: 12px 0;
+            min-height: 100px;
             font-size: 15px;
-            padding: 4px 0;
-        }
-
-        .tag {
-            background: #ede9fe;
-            color: #7c3aed;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-        }
-
-        .tag-close {
-            cursor: pointer;
-            font-weight: 600;
-            color: #a78bfa;
-            font-size: 16px;
-            line-height: 1;
-        }
-
-        .tag-close:hover {
-            color: #7c3aed;
-        }
-
-        .dropdown-options {
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0;
-            right: 0;
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            margin-top: 4px;
-            max-height: 240px;
-            overflow-y: auto;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            z-index: 10;
-            display: none;
-        }
-
-        .dropdown-options.show {
-            display: block;
-        }
-
-        .dropdown-option {
-            padding: 12px 16px;
-            cursor: pointer;
-            font-size: 15px;
-            color: #374151;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-        }
-
-        .dropdown-option:hover {
-            background: #f9fafb;
-        }
-
-        .dropdown-option input[type="checkbox"] {
-            margin-right: 12px;
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: #8b5cf6;
-        }
-
-        .dropdown-option label {
-            margin: 0;
-            cursor: pointer;
-            flex: 1;
-            color: #374151;
+            line-height: 1.5;
         }
 
         .modal-footer {
             padding: 24px 40px;
-            background: #ffffff;
+            border-top: 1px solid #e8e8e8;
             display: flex;
             justify-content: flex-end;
-            gap: 16px;
-            border-top: 1px solid #f3f4f6;
+            gap: 12px;
+            background: #fafafa;
         }
 
         .btn {
@@ -260,73 +138,57 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-            font-family: 'Open Sans', sans-serif;
             border: none;
+            font-family: 'Open Sans', sans-serif;
         }
 
         .btn-cancel {
             background: #ffffff;
-            color: #6b7280;
+            color: #374151;
             border: 1px solid #d1d5db;
         }
 
         .btn-cancel:hover {
             background: #f9fafb;
             border-color: #9ca3af;
-            color: #374151;
         }
 
         .btn-save {
             background: #8b5cf6;
             color: #ffffff;
-            padding: 12px 48px;
+            padding: 12px 40px;
         }
 
         .btn-save:hover {
             background: #7c3aed;
-            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-        }
-
-        .section-spacing {
-            margin-top: 32px;
-        }
-
-        input[type="text"][readonly] {
-            color: #6b7280;
-            background: #f9fafb;
-            cursor: not-allowed;
         }
 
         /* Scrollbar styling */
-        .modal-body::-webkit-scrollbar,
-        .dropdown-options::-webkit-scrollbar {
+        .modal-body::-webkit-scrollbar {
             width: 6px;
         }
 
-        .modal-body::-webkit-scrollbar-track,
-        .dropdown-options::-webkit-scrollbar-track {
-            background: #f3f4f6;
+        .modal-body::-webkit-scrollbar-track {
+            background: #f9fafb;
         }
 
-        .modal-body::-webkit-scrollbar-thumb,
-        .dropdown-options::-webkit-scrollbar-thumb {
+        .modal-body::-webkit-scrollbar-thumb {
             background: #d1d5db;
             border-radius: 3px;
         }
 
-        .modal-body::-webkit-scrollbar-thumb:hover,
-        .dropdown-options::-webkit-scrollbar-thumb:hover {
+        .modal-body::-webkit-scrollbar-thumb:hover {
             background: #9ca3af;
         }
 
         @media (max-width: 768px) {
-            .form-row.three-cols,
-            .form-row.two-cols {
+            .form-row {
                 grid-template-columns: 1fr;
+                gap: 32px;
             }
 
-            .phone-group {
-                grid-template-columns: 1fr;
+            .form-group.span-2 {
+                grid-column: span 1;
             }
 
             .modal-body {
@@ -346,213 +208,61 @@
 <body>
     <div class="modal">
         <div class="modal-header">
-            <h2>Add User</h2>
-            <p class="modal-subtitle">Add a new user with existing role</p>
+            <h2>Outreach Template Config</h2>
         </div>
         
         <div class="modal-body">
-            <form id="addUserForm">
-                <!-- Name Row -->
-                <div class="form-row three-cols">
+            <form id="outreachConfigForm">
+                <div class="form-row">
                     <div class="form-group">
-                        <select id="prefix" name="prefix" required>
-                            <option value="">Select</option>
-                            <option value="Mr">Mr</option>
-                            <option value="Mrs">Mrs</option>
-                            <option value="Miss">Miss</option>
-                            <option value="Ms">Ms</option>
-                            <option value="Mx">Mx</option>
-                            <option value="Dr">Dr</option>
+                        <label for="business_area">Business Area</label>
+                        <select id="business_area" name="business_area" required>
+                            <option value="">Business Area</option>
+                            <option value="orthodontics">Orthodontics</option>
+                            <option value="general_dentistry">General Dentistry</option>
+                            <option value="cosmetic_dentistry">Cosmetic Dentistry</option>
+                            <option value="pediatric_dentistry">Pediatric Dentistry</option>
+                            <option value="oral_surgery">Oral Surgery</option>
                         </select>
-                        <label for="prefix">Prefix</label>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="firstname" name="firstname" placeholder="John" required>
-                        <label for="firstname">First Name</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="lastname" name="lastname" placeholder="Doe" required>
-                        <label for="lastname">Last Name</label>
+                        <label for="outreach_type">Outreach Type</label>
+                        <select id="outreach_type" name="outreach_type" required>
+                            <option value="">Outreach Type</option>
+                            <option value="follow_up">Follow Up</option>
+                            <option value="appointment_reminder">Appointment Reminder</option>
+                            <option value="welcome">Welcome</option>
+                            <option value="promotional">Promotional</option>
+                            <option value="feedback_request">Feedback Request</option>
+                        </select>
                     </div>
                 </div>
 
-                <!-- Specialization and Phone Row -->
-                <div class="form-row two-cols">
-                    <div class="form-group">
-                        <select id="specialization" name="specialization" required>
-                            <option value="">Select</option>
-                            <option value="Orthodontics">Orthodontics</option>
-                            <option value="Periodontics">Periodontics</option>
-                            <option value="Endodontics">Endodontics</option>
-                            <option value="Prosthodontics">Prosthodontics</option>
-                            <option value="Oral Surgery">Oral Surgery</option>
-                            <option value="General Dentistry">General Dentistry</option>
-                        </select>
-                        <label for="specialization">Specialization</label>
-                    </div>
-                    <div class="form-group">
-                        <div class="phone-group">
-                            <div>
-                                <input type="text" id="country_code" name="country_code" value="+1 (US)" readonly>
-                            </div>
-                            <div>
-                                <input type="text" id="phone_number" name="phone_number" placeholder="555-123-4567" required>
-                            </div>
-                            <div>
-                                <input type="text" id="extension" name="extension" placeholder="Extension">
-                            </div>
-                        </div>
-                        <label>Phone Number</label>
-                    </div>
-                </div>
-
-                <!-- Role and Credentials Row -->
-                <div class="form-row two-cols">
-                    <div class="form-group">
-                        <select id="role_id" name="role_id" required>
-                            <option value="">Select</option>
-                            <option value="1">Admin</option>
-                            <option value="2">Doctor</option>
-                            <option value="3">Assistant</option>
-                            <option value="4">Staff</option>
-                        </select>
-                        <label for="role_id">Role</label>
-                    </div>
-                    <div class="form-group">
-                        <select id="user_credentials" name="user_credentials" required>
-                            <option value="">Select</option>
-                            <option value="DDS">DDS</option>
-                            <option value="DMD">DMD</option>
-                            <option value="BDS">BDS</option>
-                            <option value="MDS">MDS</option>
-                        </select>
-                        <label for="user_credentials">User Credentials</label>
-                    </div>
-                </div>
-
-                <!-- Email Row -->
                 <div class="form-row one-col">
                     <div class="form-group">
-                        <input type="email" id="email_id" name="email_id" placeholder="john.doe@example.com" required>
-                        <label for="email_id">Email ID</label>
+                        <label for="call_script">Call Script</label>
+                        <textarea id="call_script" name="call_script" placeholder="Enter call script here..." required></textarea>
                     </div>
                 </div>
 
-                <!-- License Type and States Row -->
-                <div class="form-row two-cols">
-                    <div class="form-group">
-                        <select id="license_type" name="license_type" required>
-                            <option value="">Select</option>
-                            <option value="orthodontist">Orthodontist</option>
-                            <option value="general_dentist">General Dentist</option>
-                            <option value="specialist">Specialist</option>
-                        </select>
-                        <label for="license_type">License Type</label>
-                    </div>
-                    <div class="form-group">
-                        <div class="multi-select-wrapper">
-                            <div class="multi-select-input" id="statesSelect">
-                                <span class="multi-select-placeholder">Select states</span>
-                            </div>
-                            <div class="dropdown-options" id="statesDropdown">
-                                <div class="dropdown-option">
-                                    <input type="checkbox" value="CA" id="state-CA">
-                                    <label for="state-CA">California (CA)</label>
-                                </div>
-                                <div class="dropdown-option">
-                                    <input type="checkbox" value="NV" id="state-NV">
-                                    <label for="state-NV">Nevada (NV)</label>
-                                </div>
-                                <div class="dropdown-option">
-                                    <input type="checkbox" value="TX" id="state-TX">
-                                    <label for="state-TX">Texas (TX)</label>
-                                </div>
-                                <div class="dropdown-option">
-                                    <input type="checkbox" value="NY" id="state-NY">
-                                    <label for="state-NY">New York (NY)</label>
-                                </div>
-                                <div class="dropdown-option">
-                                    <input type="checkbox" value="FL" id="state-FL">
-                                    <label for="state-FL">Florida (FL)</label>
-                                </div>
-                                <div class="dropdown-option">
-                                    <input type="checkbox" value="AZ" id="state-AZ">
-                                    <label for="state-AZ">Arizona (AZ)</label>
-                                </div>
-                            </div>
-                        </div>
-                        <label>Licensed States</label>
-                    </div>
-                </div>
-
-                <!-- Skills Row -->
                 <div class="form-row one-col">
                     <div class="form-group">
-                        <div class="multi-select-wrapper">
-                            <div class="multi-select-input" id="skillsSelect">
-                                <span class="multi-select-placeholder">Select skills</span>
-                            </div>
-                            <div class="dropdown-options" id="skillsDropdown">
-                                <div class="dropdown-option">
-                                    <input type="checkbox" value="Invisalign" id="skill-invisalign">
-                                    <label for="skill-invisalign">Invisalign</label>
-                                </div>
-                                <div class="dropdown-option">
-                                    <input type="checkbox" value="Treatment Planning" id="skill-treatment">
-                                    <label for="skill-treatment">Treatment Planning</label>
-                                </div>
-                                <div class="dropdown-option">
-                                    <input type="checkbox" value="Digital Scanning" id="skill-scanning">
-                                    <label for="skill-scanning">Digital Scanning</label>
-                                </div>
-                                <div class="dropdown-option">
-                                    <input type="checkbox" value="3D Printing" id="skill-printing">
-                                    <label for="skill-printing">3D Printing</label>
-                                </div>
-                                <div class="dropdown-option">
-                                    <input type="checkbox" value="Clear Aligners" id="skill-aligners">
-                                    <label for="skill-aligners">Clear Aligners</label>
-                                </div>
-                                <div class="dropdown-option">
-                                    <input type="checkbox" value="Orthodontic Appliances" id="skill-appliances">
-                                    <label for="skill-appliances">Orthodontic Appliances</label>
-                                </div>
-                            </div>
-                        </div>
-                        <label>Skills</label>
+                        <label for="sms_template">SMS Template</label>
+                        <textarea id="sms_template" name="sms_template" placeholder="Enter SMS template here..." required></textarea>
                     </div>
                 </div>
 
-                <!-- Team and Leader Row -->
-                <div class="form-row two-cols section-spacing">
+                <div class="form-row one-col">
                     <div class="form-group">
-                        <select id="team_name" name="team_name" required>
-                            <option value="">Select</option>
-                            <option value="Orthodontics Team">Orthodontics Team</option>
-                            <option value="General Dentistry Team">General Dentistry Team</option>
-                            <option value="Surgical Team">Surgical Team</option>
-                        </select>
-                        <label for="team_name">Team Name</label>
-                    </div>
-                    <div class="form-group">
-                        <select id="leader_email" name="leader_email" required>
-                            <option value="">Select</option>
-                            <option value="leader@example.com">Dr. Smith (leader@example.com)</option>
-                            <option value="manager@example.com">Dr. Johnson (manager@example.com)</option>
-                        </select>
-                        <label for="leader_email">Team Leader Email</label>
+                        <label for="email_template">Email Template</label>
+                        <textarea id="email_template" name="email_template" placeholder="Enter email template here..." required></textarea>
                     </div>
                 </div>
 
-                <!-- Experience Row -->
-                <div class="form-row two-cols">
+                <div class="form-row one-col">
                     <div class="form-group">
-                        <input type="number" id="relevant_experience" name="relevant_experience" placeholder="5" min="0" required>
-                        <label for="relevant_experience">Relevant Experience (Years)</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="number" id="total_experience" name="total_experience" placeholder="10" min="0" required>
-                        <label for="total_experience">Total Experience (Years)</label>
+                        <label for="mail_template">Mail Template</label>
+                        <textarea id="mail_template" name="mail_template" placeholder="Enter mail template here..." required></textarea>
                     </div>
                 </div>
             </form>
@@ -560,111 +270,40 @@
 
         <div class="modal-footer">
             <button type="button" class="btn btn-cancel">Cancel</button>
-            <button type="submit" class="btn btn-save" form="addUserForm">Save</button>
+            <button type="submit" class="btn btn-save" form="outreachConfigForm">Save</button>
         </div>
     </div>
 
     <script>
-        // Multi-select functionality
-        function initMultiSelect(selectId, dropdownId) {
-            const select = document.getElementById(selectId);
-            const dropdown = document.getElementById(dropdownId);
-            const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
-            
-            select.addEventListener('click', (e) => {
-                e.stopPropagation();
-                dropdown.classList.toggle('show');
-                
-                // Close other dropdowns
-                document.querySelectorAll('.dropdown-options').forEach(dd => {
-                    if (dd.id !== dropdownId) {
-                        dd.classList.remove('show');
-                    }
-                });
-            });
-
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', () => {
-                    updateMultiSelect(selectId, dropdownId);
-                });
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!select.contains(e.target) && !dropdown.contains(e.target)) {
-                    dropdown.classList.remove('show');
-                }
-            });
-        }
-
-        function updateMultiSelect(selectId, dropdownId) {
-            const select = document.getElementById(selectId);
-            const dropdown = document.getElementById(dropdownId);
-            const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]:checked');
-            
-            select.innerHTML = '';
-            
-            if (checkboxes.length === 0) {
-                const placeholder = document.createElement('span');
-                placeholder.className = 'multi-select-placeholder';
-                placeholder.textContent = selectId === 'statesSelect' ? 'Select states' : 'Select skills';
-                select.appendChild(placeholder);
-            } else {
-                checkboxes.forEach(checkbox => {
-                    const tag = document.createElement('span');
-                    tag.className = 'tag';
-                    tag.innerHTML = `
-                        ${checkbox.value}
-                        <span class="tag-close" data-value="${checkbox.value}">×</span>
-                    `;
-                    select.appendChild(tag);
-                    
-                    tag.querySelector('.tag-close').addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        checkbox.checked = false;
-                        updateMultiSelect(selectId, dropdownId);
-                    });
-                });
-            }
-        }
-
-        // Initialize multi-selects
-        initMultiSelect('statesSelect', 'statesDropdown');
-        initMultiSelect('skillsSelect', 'skillsDropdown');
-
         // Form submission
-        document.getElementById('addUserForm').addEventListener('submit', (e) => {
+        document.getElementById('outreachConfigForm').addEventListener('submit', (e) => {
             e.preventDefault();
             
             const formData = {
-                prefix: document.getElementById('prefix').value,
-                firstname: document.getElementById('firstname').value,
-                lastname: document.getElementById('lastname').value,
-                country_code: "+1",
-                phone_number: document.getElementById('phone_number').value,
-                extension: document.getElementById('extension').value,
-                email_id: document.getElementById('email_id').value,
-                specialization: document.getElementById('specialization').value,
-                leader_email: document.getElementById('leader_email').value,
-                team_name: document.getElementById('team_name').value,
-                role_id: parseInt(document.getElementById('role_id').value),
-                user_credentials: document.getElementById('user_credentials').value,
-                license_type: document.getElementById('license_type').value,
-                states: Array.from(document.querySelectorAll('#statesDropdown input:checked')).map(cb => cb.value),
-                skills: Array.from(document.querySelectorAll('#skillsDropdown input:checked')).map(cb => cb.value),
-                relevant_experience: parseInt(document.getElementById('relevant_experience').value),
-                total_experience: parseInt(document.getElementById('total_experience').value)
+                business_area: document.getElementById('business_area').value,
+                outreach_type: document.getElementById('outreach_type').value,
+                call_script: document.getElementById('call_script').value,
+                sms_template: document.getElementById('sms_template').value,
+                email_template: document.getElementById('email_template').value,
+                mail_template: document.getElementById('mail_template').value
             };
             
-            console.log('Form Data:', formData);
-            alert('User added successfully!');
+            console.log('Outreach Config Data:', formData);
+            alert('Outreach template configuration saved successfully!');
         });
 
         // Cancel button
         document.querySelector('.btn-cancel').addEventListener('click', () => {
             if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
-                document.getElementById('addUserForm').reset();
-                document.getElementById('statesSelect').innerHTML = '<span class="multi-select-placeholder">Select states</span>';
-                document.getElementById('skillsSelect').innerHTML = '<span class="multi-select-placeholder">Select skills</span>';
+                document.getElementById('outreachConfigForm').reset();
+                console.log('Form cancelled');
+            }
+        });
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelector('.btn-cancel').click();
             }
         });
     </script>
