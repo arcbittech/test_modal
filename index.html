@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Outreach Template Config Modal</title>
+    <title>Document Requirement Configuration</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -43,7 +43,13 @@
             font-size: 28px;
             font-weight: 700;
             color: #1a1a1a;
-            margin-bottom: 0;
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            font-size: 15px;
+            color: #6b7280;
+            font-weight: 400;
         }
 
         .modal-body {
@@ -81,8 +87,7 @@
         }
 
         input[type="text"],
-        select,
-        textarea {
+        select {
             padding: 0 0 12px 0;
             border: none;
             border-bottom: 1px solid #d1d5db;
@@ -92,17 +97,15 @@
             transition: all 0.3s;
             background: transparent;
             outline: none;
-            resize: none;
         }
 
         input[type="text"]:focus,
         select:focus,
-        textarea:focus {
+        .multi-select.active {
             border-bottom-color: #8b5cf6;
         }
 
-        input[type="text"]::placeholder,
-        textarea::placeholder {
+        input[type="text"]::placeholder {
             color: #9ca3af;
         }
 
@@ -115,11 +118,101 @@
             padding-right: 24px;
         }
 
-        textarea {
-            padding: 12px 0;
-            min-height: 100px;
+        /* Multi-select styles */
+        .multi-select-wrapper {
+            position: relative;
+        }
+
+        .multi-select {
+            border-bottom: 1px solid #d1d5db;
+            padding: 0 0 12px 0;
+            min-height: 36px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-items: center;
+            background-image: url("data:image/svg+xml,%3Csvg width='14' height='8' viewBox='0 0 14 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L7 7L13 1' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0 center;
+            padding-right: 24px;
+        }
+
+        .multi-select-placeholder {
+            color: #9ca3af;
             font-size: 15px;
-            line-height: 1.5;
+        }
+
+        .tag {
+            background: #f3f4f6;
+            color: #374151;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .tag-close {
+            cursor: pointer;
+            font-weight: 600;
+            color: #9ca3af;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .tag-close:hover {
+            color: #6b7280;
+        }
+
+        .dropdown-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-top: 8px;
+            max-height: 240px;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+            display: none;
+        }
+
+        .dropdown-options.show {
+            display: block;
+        }
+
+        .dropdown-option {
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #374151;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-option:hover {
+            background: #f9fafb;
+        }
+
+        .dropdown-option input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+
+        .dropdown-option label {
+            margin: 0;
+            cursor: pointer;
+            color: #374151;
         }
 
         .modal-footer {
@@ -164,21 +257,29 @@
         }
 
         /* Scrollbar styling */
-        .modal-body::-webkit-scrollbar {
+        .modal-body::-webkit-scrollbar,
+        .dropdown-options::-webkit-scrollbar {
             width: 6px;
         }
 
-        .modal-body::-webkit-scrollbar-track {
+        .modal-body::-webkit-scrollbar-track,
+        .dropdown-options::-webkit-scrollbar-track {
             background: #f9fafb;
         }
 
-        .modal-body::-webkit-scrollbar-thumb {
+        .modal-body::-webkit-scrollbar-thumb,
+        .dropdown-options::-webkit-scrollbar-thumb {
             background: #d1d5db;
             border-radius: 3px;
         }
 
-        .modal-body::-webkit-scrollbar-thumb:hover {
+        .modal-body::-webkit-scrollbar-thumb:hover,
+        .dropdown-options::-webkit-scrollbar-thumb:hover {
             background: #9ca3af;
+        }
+
+        .hidden {
+            display: none;
         }
 
         @media (max-width: 768px) {
@@ -208,61 +309,152 @@
 <body>
     <div class="modal">
         <div class="modal-header">
-            <h2>Outreach Template Config</h2>
+            <h2>Document Requirement Configuration</h2>
+            <p class="modal-subtitle">Configure required and optional documents for case types</p>
         </div>
         
         <div class="modal-body">
-            <form id="outreachConfigForm">
+            <form id="docRequirementForm">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="business_area">Business Area</label>
-                        <select id="business_area" name="business_area" required>
-                            <option value="">Business Area</option>
-                            <option value="orthodontics">Orthodontics</option>
-                            <option value="general_dentistry">General Dentistry</option>
-                            <option value="cosmetic_dentistry">Cosmetic Dentistry</option>
-                            <option value="pediatric_dentistry">Pediatric Dentistry</option>
-                            <option value="oral_surgery">Oral Surgery</option>
+                        <label for="case_type">Case Type</label>
+                        <select id="case_type" name="case_type" required>
+                            <option value="">Case Type</option>
+                            <option value="appeal">Appeal</option>
+                            <option value="grievance">Grievance</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="outreach_type">Outreach Type</label>
-                        <select id="outreach_type" name="outreach_type" required>
-                            <option value="">Outreach Type</option>
-                            <option value="follow_up">Follow Up</option>
-                            <option value="appointment_reminder">Appointment Reminder</option>
-                            <option value="welcome">Welcome</option>
-                            <option value="promotional">Promotional</option>
-                            <option value="feedback_request">Feedback Request</option>
+                        <label for="case_category">Case Category</label>
+                        <select id="case_category" name="case_category" required>
+                            <option value="">Case Category</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="form-row one-col">
+                <div class="form-row">
                     <div class="form-group">
-                        <label for="call_script">Call Script</label>
-                        <textarea id="call_script" name="call_script" placeholder="Enter call script here..." required></textarea>
+                        <label for="source_type">Source Type</label>
+                        <select id="source_type" name="source_type" required>
+                            <option value="">Source Type</option>
+                            <option value="phone">Phone</option>
+                            <option value="email">Email</option>
+                            <option value="mail">Mail</option>
+                            <option value="fax">Fax</option>
+                            <option value="portal">Portal</option>
+                            <option value="in_person">In Person</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="entity_type">Entity Type</label>
+                        <select id="entity_type" name="entity_type" required>
+                            <option value="">Entity Type</option>
+                            <option value="internal">Internal</option>
+                            <option value="member">Member</option>
+                            <option value="provider">Provider</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-row one-col">
                     <div class="form-group">
-                        <label for="sms_template">SMS Template</label>
-                        <textarea id="sms_template" name="sms_template" placeholder="Enter SMS template here..." required></textarea>
+                        <label>Required Documents</label>
+                        <div class="multi-select-wrapper">
+                            <div class="multi-select" id="requiredDocsSelect">
+                                <span class="multi-select-placeholder">Required Documents</span>
+                            </div>
+                            <div class="dropdown-options" id="requiredDocsDropdown">
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="ID Proof" id="req-doc-id">
+                                    <label for="req-doc-id">ID Proof</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Medical Records" id="req-doc-medical">
+                                    <label for="req-doc-medical">Medical Records</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Insurance Card" id="req-doc-insurance">
+                                    <label for="req-doc-insurance">Insurance Card</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Prior Authorization" id="req-doc-auth">
+                                    <label for="req-doc-auth">Prior Authorization</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Claim Form" id="req-doc-claim">
+                                    <label for="req-doc-claim">Claim Form</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Appeal Letter" id="req-doc-appeal">
+                                    <label for="req-doc-appeal">Appeal Letter</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Grievance Form" id="req-doc-grievance">
+                                    <label for="req-doc-grievance">Grievance Form</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Provider Notes" id="req-doc-notes">
+                                    <label for="req-doc-notes">Provider Notes</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Consent Form" id="req-doc-consent">
+                                    <label for="req-doc-consent">Consent Form</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Lab Results" id="req-doc-lab">
+                                    <label for="req-doc-lab">Lab Results</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-row one-col">
                     <div class="form-group">
-                        <label for="email_template">Email Template</label>
-                        <textarea id="email_template" name="email_template" placeholder="Enter email template here..." required></textarea>
-                    </div>
-                </div>
-
-                <div class="form-row one-col">
-                    <div class="form-group">
-                        <label for="mail_template">Mail Template</label>
-                        <textarea id="mail_template" name="mail_template" placeholder="Enter mail template here..." required></textarea>
+                        <label>Optional Documents</label>
+                        <div class="multi-select-wrapper">
+                            <div class="multi-select" id="optionalDocsSelect">
+                                <span class="multi-select-placeholder">Optional Documents</span>
+                            </div>
+                            <div class="dropdown-options" id="optionalDocsDropdown">
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Supporting Letters" id="opt-doc-letters">
+                                    <label for="opt-doc-letters">Supporting Letters</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Receipts" id="opt-doc-receipts">
+                                    <label for="opt-doc-receipts">Receipts</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Pharmacy Records" id="opt-doc-pharmacy">
+                                    <label for="opt-doc-pharmacy">Pharmacy Records</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Imaging Reports" id="opt-doc-imaging">
+                                    <label for="opt-doc-imaging">Imaging Reports</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Referral Letter" id="opt-doc-referral">
+                                    <label for="opt-doc-referral">Referral Letter</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Treatment Plan" id="opt-doc-treatment">
+                                    <label for="opt-doc-treatment">Treatment Plan</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Correspondence" id="opt-doc-correspondence">
+                                    <label for="opt-doc-correspondence">Correspondence</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Additional Notes" id="opt-doc-notes">
+                                    <label for="opt-doc-notes">Additional Notes</label>
+                                </div>
+                                <div class="dropdown-option">
+                                    <input type="checkbox" value="Screenshots" id="opt-doc-screenshots">
+                                    <label for="opt-doc-screenshots">Screenshots</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -270,33 +462,142 @@
 
         <div class="modal-footer">
             <button type="button" class="btn btn-cancel">Cancel</button>
-            <button type="submit" class="btn btn-save" form="outreachConfigForm">Save</button>
+            <button type="submit" class="btn btn-save" form="docRequirementForm">Save</button>
         </div>
     </div>
 
     <script>
+        // Case categories based on case type
+        const caseCategories = {
+            appeal: [
+                { value: 'service_denial', label: 'Service Denial' },
+                { value: 'payment_denial', label: 'Payment Denial' },
+                { value: 'coverage_dispute', label: 'Coverage Dispute' },
+                { value: 'network_issue', label: 'Network Issue' }
+            ],
+            grievance: [
+                { value: 'qoc', label: 'Quality of Care (QOC)' },
+                { value: 'qos', label: 'Quality of Service (QOS)' },
+                { value: 'accessibility', label: 'Accessibility and Availability' },
+                { value: 'clc', label: 'Cultural Linguistic Competency (CLC)' }
+            ]
+        };
+
+        // Case Type change handler
+        document.getElementById('case_type').addEventListener('change', function() {
+            const caseType = this.value;
+            const caseCategorySelect = document.getElementById('case_category');
+            
+            // Clear existing options
+            caseCategorySelect.innerHTML = '<option value="">Case Category</option>';
+            
+            if (caseType && caseCategories[caseType]) {
+                caseCategories[caseType].forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category.value;
+                    option.textContent = category.label;
+                    caseCategorySelect.appendChild(option);
+                });
+            }
+        });
+
+        // Multi-select functionality
+        function initMultiSelect(selectId, dropdownId) {
+            const select = document.getElementById(selectId);
+            const dropdown = document.getElementById(dropdownId);
+            const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+            
+            select.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdown.classList.toggle('show');
+                select.classList.toggle('active');
+                
+                // Close other dropdowns
+                document.querySelectorAll('.dropdown-options').forEach(dd => {
+                    if (dd !== dropdown) dd.classList.remove('show');
+                });
+                document.querySelectorAll('.multi-select').forEach(ms => {
+                    if (ms !== select) ms.classList.remove('active');
+                });
+            });
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    updateMultiSelect(selectId, dropdownId);
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!select.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.remove('show');
+                    select.classList.remove('active');
+                }
+            });
+        }
+
+        function updateMultiSelect(selectId, dropdownId) {
+            const select = document.getElementById(selectId);
+            const dropdown = document.getElementById(dropdownId);
+            const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]:checked');
+            
+            select.innerHTML = '';
+            
+            if (checkboxes.length === 0) {
+                const placeholder = document.createElement('span');
+                placeholder.className = 'multi-select-placeholder';
+                placeholder.textContent = selectId === 'requiredDocsSelect' ? 'Required Documents' : 'Optional Documents';
+                select.appendChild(placeholder);
+            } else {
+                checkboxes.forEach(checkbox => {
+                    const tag = document.createElement('span');
+                    tag.className = 'tag';
+                    tag.innerHTML = `
+                        ${checkbox.value}
+                        <span class="tag-close" data-value="${checkbox.value}">×</span>
+                    `;
+                    select.appendChild(tag);
+                    
+                    tag.querySelector('.tag-close').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        checkbox.checked = false;
+                        updateMultiSelect(selectId, dropdownId);
+                    });
+                });
+            }
+        }
+
+        // Initialize multi-selects
+        initMultiSelect('requiredDocsSelect', 'requiredDocsDropdown');
+        initMultiSelect('optionalDocsSelect', 'optionalDocsDropdown');
+
         // Form submission
-        document.getElementById('outreachConfigForm').addEventListener('submit', (e) => {
+        document.getElementById('docRequirementForm').addEventListener('submit', (e) => {
             e.preventDefault();
             
             const formData = {
-                business_area: document.getElementById('business_area').value,
-                outreach_type: document.getElementById('outreach_type').value,
-                call_script: document.getElementById('call_script').value,
-                sms_template: document.getElementById('sms_template').value,
-                email_template: document.getElementById('email_template').value,
-                mail_template: document.getElementById('mail_template').value
+                case_type: document.getElementById('case_type').value,
+                case_category: document.getElementById('case_category').value,
+                source_type: document.getElementById('source_type').value,
+                entity_type: document.getElementById('entity_type').value,
+                required_documents: Array.from(document.querySelectorAll('#requiredDocsDropdown input:checked')).map(cb => cb.value),
+                optional_documents: Array.from(document.querySelectorAll('#optionalDocsDropdown input:checked')).map(cb => cb.value)
             };
             
-            console.log('Outreach Config Data:', formData);
-            alert('Outreach template configuration saved successfully!');
+            console.log('Document Requirement Configuration:', formData);
+            alert('Configuration saved successfully!');
         });
 
         // Cancel button
         document.querySelector('.btn-cancel').addEventListener('click', () => {
             if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
-                document.getElementById('outreachConfigForm').reset();
-                console.log('Form cancelled');
+                document.getElementById('docRequirementForm').reset();
+                
+                // Reset multi-selects
+                document.querySelectorAll('.dropdown-options input[type="checkbox"]').forEach(cb => {
+                    cb.checked = false;
+                });
+                updateMultiSelect('requiredDocsSelect', 'requiredDocsDropdown');
+                updateMultiSelect('optionalDocsSelect', 'optionalDocsDropdown');
             }
         });
 
